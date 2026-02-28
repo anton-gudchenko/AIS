@@ -7,6 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.ColumnSpan="2" Margin="10,10,10,10">
+            <Label Content="Ниже отображается список с выполненными действиями" Width="328"/>
+            <Button x:Name="StartButton" Content="Запустить" Width="57.73" HorizontalAlignment="Right" Click="Start_Click"/>
+        </DockPanel>
+        <ListView x:Name="SolutionPath" Foreground="Black" FontFamily="Cascadia Code" Grid.Row="1" FontSize="20">
+            
+        </ListView>
     </Grid>
 </Window>
