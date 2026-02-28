@@ -11,36 +11,39 @@ namespace Practice1
         T? Operation { get; set; }
 
         IProblemState<T>? PreviousState { get; set; }
-
-        bool IsCorrect();
-
-        bool IsSolved();
-
-        IList<IProblemState<T>> GetPossibleStates();
     }
 
-    public interface ISolutionTracker<T>
+    public interface IStateResolver<State, T> where State : IProblemState<T>
     {
-        void StatePulled(IProblemState<T> state);
+        bool IsCorrect(State state);
 
-        void StateDiscarded(IProblemState<T> state);
+        bool IsSolved(State state);
 
-        void StateSolved(IProblemState<T> state);
+        IEnumerable<State> ResolveNextStates(State state);
     }
 
-    public abstract class AbstractSolutionTracker<T> : ISolutionTracker<T>
+    public interface ISolutionTracker<State, T> where State : IProblemState<T>
     {
-        public virtual void StatePulled(IProblemState<T> state)
+        void StatePulled(State state);
+
+        void StateDiscarded(State state);
+
+        void StateSolved(State state);
+    }
+
+    public abstract class AbstractSolutionTracker<State, T> : ISolutionTracker<State, T> where State : IProblemState<T>
+    {
+        public virtual void StatePulled(State state)
         {
             
         }
 
-        public virtual void StateDiscarded(IProblemState<T> state)
+        public virtual void StateDiscarded(State state)
         {
             
         }
 
-        public virtual void StateSolved(IProblemState<T> state)
+        public virtual void StateSolved(State state)
         {
             
         }
@@ -48,29 +51,30 @@ namespace Practice1
 
     public static class ProblemSolver
     {
-        public static List<T> Solve<T>(IProblemState<T> initialState, ISolutionTracker<T>? tracker = null)
+        public static List<T> Solve<State, T>(State initialState, Func<IStateResolver<State, T>> resolverFactory, ISolutionTracker<State, T>? tracker = null) where State : IProblemState<T>
         {
-            Stack<IProblemState<T>> stack = new();
+            Stack<State> stack = new();
             stack.Push(initialState);
 
+            var resolver = resolverFactory();
             IProblemState<T>? result = null;
 
             while (stack.Count > 0)
             {
-                IProblemState<T> state = stack.Pop();
+                State state = stack.Pop();
                 tracker?.StatePulled(state);
-                if (!state.IsCorrect())
+                if (!resolver.IsCorrect(state))
                 {
                     tracker?.StateDiscarded(state);
                     continue;
                 }
-                if (state.IsSolved())
+                if (resolver.IsSolved(state))
                 {
                     result = state;
                     tracker?.StateSolved(state);
                     break;
                 }
-                foreach (var nextState in state.GetPossibleStates().Reverse())
+                foreach (var nextState in resolver.ResolveNextStates(state).Reverse())
                 {
                     stack.Push(nextState);
                 }
