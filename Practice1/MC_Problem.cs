@@ -125,7 +125,6 @@ namespace Practice1
                     Transfer(state, 2, 0, 1, nextStates);
                 if (state.Coast1.Missionaries > 0 && state.Coast1.Cannibals > 0)
                     Transfer(state, 2, 1, 1, nextStates);
-                Transfer(state, 2, 0, 0, nextStates);
             }
             else
             {
@@ -139,7 +138,6 @@ namespace Practice1
                     Transfer(state, 1, 0, 1, nextStates);
                 if (state.Coast2.Missionaries > 0 && state.Coast2.Cannibals > 0)
                     Transfer(state, 1, 1, 1, nextStates);
-                Transfer(state, 1, 0, 0, nextStates);
             }
             return nextStates.Shuffle();
         }
