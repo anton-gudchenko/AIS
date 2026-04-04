@@ -4,7 +4,13 @@ namespace Practice2
 {
     public static class TowerOfHanoi
     {
-        public record Move(int FromPivot, int ToPivot);
+        public record Move(int FromPivot, int ToPivot)
+        {
+            public override string ToString()
+            {
+                return (FromPivot + 1) + " --> " + (ToPivot + 1);
+            }
+        }
 
         private static void RecursiveSolve(List<Move> solution, int n, int fromPivot, int toPivot)
         {
@@ -35,13 +41,10 @@ namespace Practice2
             public required int N { get; set; }
             public required int FromPivot { get; set; }
             public required int ToPivot { get; set; }
-            public int MidPivot { get => 3 - (FromPivot + ToPivot); }
+            public int MidPivot => 3 - (FromPivot + ToPivot);
             public int RecursiveCall { get; set; }
 
-            public Move Move
-            {
-                get => new(FromPivot, ToPivot);
-            }
+            public Move Move => new(FromPivot, ToPivot);
         }
 
         public static List<Move> LoopSolve(int initialDisks)
@@ -56,33 +59,33 @@ namespace Practice2
             });
             while (stack.Count > 0)
             {
-                var instant = stack.Peek();
-                if (instant.N == 1)
+                var instance = stack.Peek();
+                if (instance.N == 1)
                 {
-                    solution.Add(instant.Move);
+                    solution.Add(instance.Move);
                     stack.Pop();
                     continue;
                 }
-                if (instant.RecursiveCall == 0)
+                if (instance.RecursiveCall == 0)
                 {
                     stack.Push(new()
                     {
-                        N = instant.N - 1,
-                        FromPivot = instant.FromPivot,
-                        ToPivot = instant.MidPivot
+                        N = instance.N - 1,
+                        FromPivot = instance.FromPivot,
+                        ToPivot = instance.MidPivot
                     });
-                    instant.RecursiveCall++;
+                    instance.RecursiveCall++;
                 }
-                else if (instant.RecursiveCall == 1)
+                else if (instance.RecursiveCall == 1)
                 {
-                    solution.Add(instant.Move);
+                    solution.Add(instance.Move);
                     stack.Push(new()
                     {
-                        N = instant.N - 1,
-                        FromPivot = instant.MidPivot,
-                        ToPivot = instant.ToPivot
+                        N = instance.N - 1,
+                        FromPivot = instance.MidPivot,
+                        ToPivot = instance.ToPivot
                     });
-                    instant.RecursiveCall++;
+                    instance.RecursiveCall++;
                 }
                 else
                 {

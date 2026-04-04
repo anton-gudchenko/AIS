@@ -7,6 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
+        <WrapPanel>
+            <Label Content="Введите количество блоков на первой башне:" />
+            <TextBox Margin="5" Width="200" x:Name="InitialBlocksText" />
+            <Button Content="Решить" Margin="5" Click="SolveButton_Click" x:Name="SolveButton" />
+            <TextBlock Margin="5" x:Name="StepsCount" />
+        </WrapPanel>
+
+        <ListView Grid.Row="1" x:Name="Steps" />
     </Grid>
 </Window>
