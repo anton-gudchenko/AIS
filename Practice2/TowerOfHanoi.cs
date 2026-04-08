@@ -8,7 +8,7 @@ namespace Practice2
         {
             public override string ToString()
             {
-                return (FromPivot + 1) + " --> " + (ToPivot + 1);
+                return (char) ('A' + FromPivot) + " --> " + (char) ('A' + ToPivot);
             }
         }
 

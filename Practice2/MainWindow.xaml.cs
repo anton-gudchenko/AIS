@@ -47,7 +47,7 @@ namespace Practice2
 
             var moves = TowerOfHanoi.LoopSolve(initialBlocks);
             int[] pivots = [initialBlocks, 0, 0];
-            Steps.Items.Add($"({pivots[0]}; {pivots[1]}; {pivots[2]})");
+            Steps.Items.Add($"{pivots[0]}; {pivots[1]}; {pivots[2]}");
             moves.ForEach(move => {
                 --pivots[move.FromPivot];
                 ++pivots[move.ToPivot];
