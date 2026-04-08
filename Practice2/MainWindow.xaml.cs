@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static Practice2.TowerOfHanoi;
 
 namespace Practice2
 {
@@ -34,9 +35,9 @@ namespace Practice2
                 MessageBox.Show(this, "Число не должно быть отрицательным");
                 return;
             }
-            if (initialBlocks == 0 || initialBlocks > 15)
+            if (initialBlocks == 0 || initialBlocks > 30)
             {
-                MessageBox.Show(this, "Количество начальных блоков должно быть от 1 до 15 включительно");
+                MessageBox.Show(this, "Количество начальных блоков должно быть от 1 до 30 включительно");
                 return;
             }
 
@@ -47,12 +48,14 @@ namespace Practice2
 
             var moves = TowerOfHanoi.LoopSolve(initialBlocks);
             int[] pivots = [initialBlocks, 0, 0];
-            Steps.Items.Add($"{pivots[0]}; {pivots[1]}; {pivots[2]}");
-            moves.ForEach(move => {
+            Steps.Items.Add($"0: {pivots[0]}; {pivots[1]}; {pivots[2]}");
+            for (int i = 0; i < moves.Count; i++)
+            {
+                Move move = moves[i];
                 --pivots[move.FromPivot];
                 ++pivots[move.ToPivot];
-                Steps.Items.Add($"{pivots[0]}; {pivots[1]}; {pivots[2]} ({move})");
-            });
+                Steps.Items.Add($"{i + 1}: {pivots[0]}; {pivots[1]}; {pivots[2]} ({move})");
+            }
 
             InitialBlocksText.IsEnabled = true;
             SolveButton.Content = "Решить";
