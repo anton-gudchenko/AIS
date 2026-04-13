@@ -1,0 +1,28 @@
+﻿<Window x:Class="Practice5.ImageGridDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Practice5"
+        mc:Ignorable="d"
+        Title="Выбор образа" Height="350" Width="350" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <WrapPanel Orientation="Vertical" x:Name="MainPanel">
+            <Label Content="Задайте образ:" />
+        </WrapPanel>
+        
+        <WrapPanel Grid.Row="1" Grid.Column="1">
+            <Button Content="ОК" Margin="5" Padding="5,2,5,2" Click="OKButton_Click" />
+            <Button Content="Отмена" Margin="5" Padding="5,2,5,2" Click="CancelButton_Click" />
+        </WrapPanel>
+    </Grid>
+</Window>
