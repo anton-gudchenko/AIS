@@ -1,4 +1,6 @@
 <Solution>
   <Project Path="Practice1/Practice1.csproj" />
   <Project Path="Practice2/Practice2.csproj" Id="8d9a8311-5b95-4a07-8e80-d21e58df4423" />
+  <Project Path="Practice3/Practice3.csproj" Id="d72effa9-bfd1-4a70-897f-68d49ed5e149" />
+  <Project Path="Practice5/Practice5.csproj" Id="5cb89fcf-30e2-4df4-955d-1548d7d94494" />
 </Solution>
